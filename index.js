@@ -13,6 +13,8 @@ app.use(express.json());
 
 app.use("/api/auth", require("./routes/auth"));
 
+app.use("/api/events", require("./routes/events"));
+
 app.use(express.static("public"));
 
 app.listen(port, () => console.log(`Server running in port ${port}`));
