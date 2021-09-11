@@ -7,25 +7,20 @@ const {
   updateEvent,
   deleteEvent,
 } = require("../controllers/events");
+const { isDate } = require("../helpers/isDate");
 const { fieldValidate } = require("../middlewares/fieldValidator");
 const { validateJWT } = require("../middlewares/validateJWT");
 
 router.use(validateJWT);
 
-router.get(
-  "/",
-  [check("event", "Event is required").not().isEmpty()],
-  fieldValidate,
-  getEvents
-);
+router.get("/", getEvents);
 
 router.post(
   "/new",
   [
-    check("event", "Event is required").not().isEmpty(),
-    check("event", "Event should be at least 25 character lenght").isLength({
-      min: 25,
-    }),
+    check("title", "title is required").not().isEmpty(),
+    check("start", "Start date is required").custom(isDate),
+    check("end", "Finish date is required").custom(isDate),
   ],
   fieldValidate,
   createEvent
@@ -34,10 +29,9 @@ router.post(
 router.put(
   "/update/:id",
   [
-    check("event", "Event is required").not().isEmpty(),
-    check("event", "Event should be at least 25 character lenght").isLength({
-      min: 25,
-    }),
+    check("title", "title is required").not().isEmpty(),
+    check("start", "Start date is required").custom(isDate),
+    check("end", "Finish date is required").custom(isDate),
   ],
   fieldValidate,
   updateEvent
