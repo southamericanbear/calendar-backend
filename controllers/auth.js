@@ -71,6 +71,8 @@ const revalidationToken = async (req, res = response) => {
   res.json({
     ok: true,
     msg: "token is valid again dudeeeee",
+    uid,
+    name,
     token,
   });
 };
